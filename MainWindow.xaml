@@ -1,0 +1,58 @@
+﻿<Window x:Class="WindowsDiskClear.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WindowsDiskClear"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="已删数据彻底清理工具_VERSION_ (随机写入数据，防止被恢复)" Height="450" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="18*" ></ColumnDefinition>
+            <ColumnDefinition Width="107*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="电脑硬盘列表" Margin="10 10 10 10" FontSize="16"></TextBlock>
+                <Button Click="ViewUpdateHistory" Padding="10 0 10 0" BorderThickness="0" Background="Transparent" Content="查看更新记录" FontSize="12" Height="25" Margin="250 10 10 10">
+                </Button>
+            </StackPanel>
+            <Label Height="1" Width="500" Background="#eee"></Label>
+            <DataGrid x:Name="DataTable" AutoGenerateColumns="False" ItemsSource="{Binding Data}" CanUserAddRows="False">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Height" Value="22"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="硬盘" Width="60" Binding="{Binding Name, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="详情" Width="359" Binding="{Binding Desc, Mode=TwoWay}"/>
+                    <DataGridTemplateColumn Header="是否清理">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Label Height="1" Width="500" Background="#eee"></Label>
+            <StackPanel Orientation="Horizontal">
+                <Button Name="startClear" Click="StartClear" Background="Transparent" Content="开始清理" Width="80" FontSize="12" Height="25" Margin="10"></Button>
+                <Button Name="stopClear" Click="StopClear" Background="Transparent" Content="停止清理" Width="80" FontSize="12" Height="25" Margin="10"></Button>
+            </StackPanel>
+
+            <TextBlock x:Name="info" Margin="10" Height="100" Text="运行信息显示"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <CheckBox Name="cb_auto_delete_file" IsChecked="True" Click="OnAutoDeleteFileClick" Content="完成后自动删除临时文件" Width="160" FontSize="12" Height="25" Margin="10"></CheckBox>
+                <CheckBox Name="cb_auto_shutdown" Click="OnAutoShutdownClick" Content="完成后30秒自动关机" Width="160" FontSize="12" Height="25" Margin="10"></CheckBox>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>
