@@ -11,11 +11,11 @@ namespace WindowsDiskClear
     {
         public const string APP_VERSION = "1.0.2";
 
-        public static List<UpdateHistory> updateHistories = new List<UpdateHistory>();
+        public static List<UpgradeHistory> updateHistories = new List<UpgradeHistory>();
 
         static App()
         {
-            updateHistories.Add(new UpdateHistory()
+            updateHistories.Add(new UpgradeHistory()
             {
                 Date = "20240228",
                 Version = "1.0.2",
@@ -27,7 +27,7 @@ namespace WindowsDiskClear
                 }
             });
 
-            updateHistories.Add(new UpdateHistory()
+            updateHistories.Add(new UpgradeHistory()
             {
                 Date = "20240227",
                 Version = "1.0.1",
@@ -40,7 +40,7 @@ namespace WindowsDiskClear
                 }
             });
 
-            updateHistories.Add(new UpdateHistory()
+            updateHistories.Add(new UpgradeHistory()
             {
                 Date = "20240226",
                 Version = "1.0.0",

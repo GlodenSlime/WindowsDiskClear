@@ -17,7 +17,7 @@
         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="电脑硬盘列表" Margin="10 10 10 10" FontSize="16"></TextBlock>
-                <Button Click="ViewUpdateHistory" Padding="10 0 10 0" BorderThickness="0" Background="Transparent" Content="查看更新记录" FontSize="12" Height="25" Margin="250 10 10 10">
+                <Button Click="ViewUpgradeHistory" Padding="10 0 10 0" BorderThickness="0" Background="Transparent" Content="查看更新记录" FontSize="12" Height="25" Margin="250 10 10 10">
                 </Button>
             </StackPanel>
             <Label Height="1" Width="500" Background="#eee"></Label>

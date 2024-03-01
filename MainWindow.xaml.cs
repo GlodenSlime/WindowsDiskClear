@@ -131,10 +131,10 @@ namespace WindowsDiskClear
 
                     ProgressModel progressModel = new ProgressModel()
                     {
-                        Name = diskInfo.Name,
-                        Total = freeSpace,
-                        Remain = freeSpace,
-                        IsOk = false
+                        DiskName = diskInfo.Name,
+                        TotalBytes = freeSpace,
+                        RemainBytes = freeSpace,
+                        Completed = false
                     };
                     progresses.Add(progressModel);
 
@@ -160,7 +160,7 @@ namespace WindowsDiskClear
                         {
                             File.Delete(filePath);
                         }
-                        progressModel.FilePath = filePath;
+                        progressModel.TmpFilePath = filePath;
 
                         try
                         {
@@ -174,7 +174,7 @@ namespace WindowsDiskClear
                                     fileStream.Flush();
 
                                     freeSpace -= buffer.Length;
-                                    progressModel.Remain = freeSpace;
+                                    progressModel.RemainBytes = freeSpace;
                                 }
                             }
                         }
@@ -185,13 +185,13 @@ namespace WindowsDiskClear
                         {
                             if (isAutoDeleteFile)//自动删除文件
                             {
-                                if (File.Exists(progressModel.FilePath))
+                                if (File.Exists(progressModel.TmpFilePath))
                                 {
-                                    File.Delete(progressModel.FilePath);
+                                    File.Delete(progressModel.TmpFilePath);
                                 }
                             }
                         }
-                        progressModel.IsOk = isRunning;
+                        progressModel.Completed = isRunning;
                     });
 
                     index += 1;
@@ -210,7 +210,7 @@ namespace WindowsDiskClear
 
                     for (int i = 0; i < progresses.Count; i++)
                     {
-                        infoText += $"{progresses[i].Name}盘进度: " + progresses[i].CalculateProgress() + $" 临时文件: {progresses[i].FilePath}\n";
+                        infoText += $"{progresses[i].DiskName}盘进度: " + progresses[i].CalculateProgress() + $" 临时文件: {progresses[i].TmpFilePath}\n";
                     }
 
                     App.Current.Dispatcher.Invoke(() =>
@@ -218,7 +218,7 @@ namespace WindowsDiskClear
                         info.Text = infoText;
                     });
 
-                    if (progresses.Where(p => p.IsOk).Count() == progresses.Count)
+                    if (progresses.Where(p => p.Completed).Count() == progresses.Count)
                     {
                         //完成
                         break;
@@ -251,10 +251,10 @@ namespace WindowsDiskClear
             MessageBox.Show("停止清理");
         }
 
-        private void ViewUpdateHistory(object sender, RoutedEventArgs e)
+        private void ViewUpgradeHistory(object sender, RoutedEventArgs e)
         {
             string info = "";
-            foreach (UpdateHistory updateHistory in App.updateHistories)
+            foreach (UpgradeHistory updateHistory in App.updateHistories)
             {
                 info += updateHistory.Date + " v" + updateHistory.Version + " \n";
                 for (int i = 0; i < updateHistory.Contents.Count; i++)
